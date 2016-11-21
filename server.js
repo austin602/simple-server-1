@@ -6,13 +6,18 @@ var server = express ();
 
 
 // view engine setup
-server.set('views', __dirname + '/views');
+server.set('views', __dirname + '/templates');
+
+app.engine('.hbs', exphbs({defaultLayout: 'single', extname: '.hbs'}));
 
 var exphbs = require('express-handlebars');
 server.engine('.hbs', exphbs({
+    layoutsDir: 'templates',
+    partialsDir: 'templates/partials',
     defaultLayout: 'index',
     extname: '.hbs'
 }));
+
 server.set('view engine', '.hbs');
 
 
