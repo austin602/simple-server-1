@@ -15,10 +15,11 @@ router.get ('/', function (request, response) {
     // NOTE: The response object is used to send responses
     // back to the user who made the request.
 
+    // Response.send will send to the browser what
     // response.send ('<h1>Hello World!</h1>');
 
     // Have express render out the string / text markup response
-    // that will go to the client.
+    // that will go to the client. Specify the template to use.
     response.render ('home');
 });
 

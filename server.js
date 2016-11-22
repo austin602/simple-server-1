@@ -39,7 +39,7 @@ server.set ('view engine', '.hbs');
 var mongoClient = require ('mongodb').MongoClient;
 
 // Create a reference to the database.
-var db;
+global.db;
 
 // Create a connection to the database.
 mongoClient.connect ('mongodb://localhost:27017/sample_database', function (error, database) {
@@ -90,7 +90,17 @@ server.use ('/post', postRoutes);
 
 
 // Connect the user routes.
-// ...
+var userRoutes = require ('./routes/user.js');
+server.use ('/user', userRoutes);
+
+
+
+
+
+
+
+
+
 
 // Test a database query.
 server.get ('/test', function (request, response) {
