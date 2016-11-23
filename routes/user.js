@@ -7,7 +7,17 @@ var router = express.Router ();
 // Define routes.
 router.get ('/login', function (request, response) {
     // response.send ('You are now on the login page.');
-    response.render ('login');
+
+    // Check to see if the user session exists and
+    // the user is defined.
+    if (request.session.user) {
+        // Redirect user to the dashboard.
+        response.redirect ('/user/dashboard');
+    }
+    else {
+        // Show the login template page.
+        response.render ('login');
+    }
 });
 
 router.post ('/login', function (request, response) {
@@ -38,12 +48,26 @@ router.post ('/login', function (request, response) {
             else if (!result) {
                 // The query was run but did NOT find a matching
                 // object
-                response.send ('Your username or password is NOT correct.');
+                request.flash ('error', 'Your username or password is not correct');
+                response.redirect ('/user/login');
+                // response.send ('Your username or password is NOT correct.');
+
+                console.log ('*** TEST: ', request);
             }
             else {
+                // Save the user to the session.
+                console.log ('This is the found user: ', result);
+
+                request.session.user = {
+                    username: result.username,
+                    email: result.email
+                }
+
+                console.log ('This is the session data: ', request.session);
+
                 // The query was run and DID find a matching object.
                 // response.send ('Found the user by the name: ' + result.username);
-                response.redirect ('/post');
+                response.redirect ('/user/dashboard');
             }
 
             // console.log ('This is the result of the query: ', result);
@@ -84,7 +108,27 @@ router.post ('/register', function (request, response) {
 
 router.get ('/reset', function (request, response) {
     response.send ('Your are no the reset page.');
-})
+});
+
+
+router.get ('/dashboard', function (request, response) {
+    // response.send ('You are now on the dashboard page.');
+
+    console.log ('session: ', request.session);
+
+    response.render ('dashboard', {
+        data: {
+            // Pass the session user to the template for
+            // rendering the user information.
+            user: request.session.user
+        }
+    });
+});
+
+router.get ('/logout', function (request, response) {
+    request.session.destroy ();
+    response.redirect ('/user/login');
+});
 
 // Exporting the router from this module.
 module.exports = router;

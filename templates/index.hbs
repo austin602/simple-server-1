@@ -10,9 +10,19 @@
             <a href="/about">About</a>
             <a href="/contact">Contact</a>
             <a href="/faq">FAQ</a>
-            <a href="/user/login">Login</a>
-            <a href="/user/register">Register</a>
+
+            <!-- Alternate the menu if the user is logged in or not -->
+            {{#if user }}
+                <a href="/user/dashboard">Dashboard</a>
+                <a href="/user/logout">Logout</a>
+            {{else }}
+                <a href="/user/login">Login</a>
+                <a href="/user/register">Register</a>
+            {{/if}}
+
         </nav>
+
+        This should be user data: {{ user.name }}
 
         <h1>Simple Server</h1>
         <p>This is the simple server app.</p>

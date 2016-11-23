@@ -13,6 +13,47 @@ var bodyParser = require ('body-parser');
 // data out of any POST requests from the browser.
 server.use (bodyParser.urlencoded ({ extended: true }));
 
+
+
+// Load in the express session handler.
+var session = require ('express-session');
+
+// Configure the session to be used by express.
+server.use (session ({
+    secret: 'This is my secret phrase',     // Used to hash / encrypt the session key.
+    resave: false,
+    saveUninitialized: true
+}));
+
+// Set a global function that will be run BEFORE
+// any of our routes are run.
+server.use (function (request, response, next) {
+    // Set the local data in the template to
+    // use the user session data.
+    response.locals.user = request.session.user;
+    response.locals.message = request.session.flash;
+
+    console.log ('**** FLASH: ', response.locals.message);
+
+    // Move on to the next route. ****
+    next ();
+
+    // console.log ('Next object: ', next);
+});
+
+// Load in the connect-flash express middleware module.
+var flash = require ('connect-flash');
+
+server.use (flash ());
+
+// server.use (function (request, response, next) {
+//     // request.locals.messages =
+//
+//     console.log ('**** MESSAGE: ', require ('express-messages') (request, response))
+//
+//     next ();
+// });
+
 // Set the port that our server will run on.
 var port = 3000;
 
