@@ -1,0 +1,16 @@
+<h2>Products</h2>
+
+<a href="/product/create">Create Product</a>
+
+<!-- Loop through each of the products and display them on the view. -->
+{{#each data.productList }}
+    <div>
+        <div>
+            <strong>name:</strong> {{ name }}
+        </div>
+
+        <div>
+            <strong>description:</strong> {{ description }}
+        </div>
+    </div>
+{{/each }}

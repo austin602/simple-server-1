@@ -1,0 +1,16 @@
+<h2>Product Create / Edit</h2>
+
+{{#if message.success}}
+    <div class="success notice">
+        <p>{{ message.success }}</p>
+    </div>
+{{/if}}
+
+<form method="POST" enctype="application/x-www-form-urlencoded" action="/product">
+    <input name="name" type="text">
+    <input name="price" type="text">
+    <input name="imageUrl" type="text">
+    <textarea name="description"></textarea>
+
+    <button type="submit">Save Product</button>
+</form>

@@ -125,12 +125,13 @@ server.use ('/', basicRoutes);
 var postRoutes = require ('./routes/posts.js');
 server.use ('/post', postRoutes);
 
-
 // Connect the user routes.
 var userRoutes = require ('./routes/user.js');
 server.use ('/user', userRoutes);
 
-
+// Connect the product routes.
+var productRoutes = require ('./routes/product.js');
+server.use ('/product', productRoutes);
 
 
 
