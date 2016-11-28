@@ -4,6 +4,9 @@ var express = require ('express');
 // Create an express router.
 var router = express.Router ();
 
+// Load the User schema object.
+var User = require ('../model/user.js');
+
 // Define routes.
 router.get ('/login', function (request, response) {
     // response.send ('You are now on the login page.');
@@ -131,6 +134,54 @@ router.get ('/logout', function (request, response) {
     request.session.destroy ();
     response.redirect ('/user/login');
 });
+
+
+router.get ('/test', function (request, response) {
+    // Now that we have our model, we will try
+    // and create a new user object based on the
+    // model.
+    var newUser = User ({
+        username: 'bobie bushe',
+        password: 'secret'
+    });
+
+    // Save the user to the database.
+    newUser.save (function (error) {
+        if (error) {
+            console.error ('*** ERROR: Unable to save the user.');
+            console.error (error);
+        }
+        else {
+            console.log ('User was successfully saved to db: ', newUser);
+
+            // Run a query to find a User object.
+            User.find ({ username: 'ronbravo' }, function (error, foundUser) {
+                if (error) {
+                    console.error ('*** ERROR: Unable to find the user.');
+                    console.error (error);
+                }
+                else {
+                    console.log ('User found: ', foundUser);
+                }
+            });
+
+
+            // Run a query where we search by the user object's id.
+            User.findById ('58348492e42f416e1413c130', function (error, foundUser) {
+                if (error) {
+                    console.error ('*** ERROR: Unable to find the user by id.');
+                    console.error (error);
+                }
+                else {
+                    console.log ('User found by id: ', foundUser);
+                }
+            });
+        }
+    });
+
+    console.log ('test: ', User);
+    response.send ('Testing out the user model.');
+})
 
 // Exporting the router from this module.
 module.exports = router;
