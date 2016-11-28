@@ -48,11 +48,13 @@ router.post ('/login', function (request, response) {
             else if (!result) {
                 // The query was run but did NOT find a matching
                 // object
-                request.flash ('error', 'Your username or password is not correct');
-                response.redirect ('/user/login');
-                // response.send ('Your username or password is NOT correct.');
 
-                console.log ('*** TEST: ', request);
+                // Create a flash message to let the user know there
+                // was a problem with their credentials.
+                request.flash ('error', 'Your username or password is not correct');
+
+                // Redirect back to the login page.
+                response.redirect ('/user/login');
             }
             else {
                 // Save the user to the session.

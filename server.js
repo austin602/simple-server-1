@@ -5,6 +5,9 @@ var express = require ('express');
 var server = express ();
 
 
+// Set the public folder that can be access by any public user.
+server.use (express.static ('public'));
+
 // Make sure the body-parser has been installed (npm install body-parser --save).
 // Load the body-parser module.
 var bodyParser = require ('body-parser');
@@ -25,34 +28,27 @@ server.use (session ({
     saveUninitialized: true
 }));
 
+
+// Load in the connect-flash express middleware module.
+var flash = require ('connect-flash');
+
+// Set our server app to use the flash message object.
+server.use (flash ());
+
 // Set a global function that will be run BEFORE
 // any of our routes are run.
 server.use (function (request, response, next) {
     // Set the local data in the template to
     // use the user session data.
     response.locals.user = request.session.user;
-    response.locals.message = request.session.flash;
 
-    console.log ('**** FLASH: ', response.locals.message);
+    // Set the flash object to be set and used
+    // before running any other routes or functions.
+    response.locals.message = request.flash ();
 
-    // Move on to the next route. ****
+    // Move on to the next route.
     next ();
-
-    // console.log ('Next object: ', next);
 });
-
-// Load in the connect-flash express middleware module.
-var flash = require ('connect-flash');
-
-server.use (flash ());
-
-// server.use (function (request, response, next) {
-//     // request.locals.messages =
-//
-//     console.log ('**** MESSAGE: ', require ('express-messages') (request, response))
-//
-//     next ();
-// });
 
 // Set the port that our server will run on.
 var port = 3000;

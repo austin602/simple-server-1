@@ -1,7 +1,9 @@
 <h2>Login</h2>
 
-{{#if error }}
-    <p>ERROR: {{ message.error }}</p>
+{{#if message.error}}
+    <div class="error notice">
+        <p>This is where our flash message will go.</p>
+    </div>
 {{/if}}
 
 <form method="POST" enctype="application/x-www-form-urlencoded" action="/user/login">

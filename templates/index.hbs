@@ -3,6 +3,23 @@
     <head>
         <meta charset="utf-8">
         <title>Simple Server</title>
+
+        <link href="/css/style.less" rel="stylesheet" type="text/less" />
+
+        <!-- set options before less.js script -->
+        <script>
+          less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments",
+            relativeUrls: false,
+            rootpath: ":/a.com/"
+          };
+        </script>
+        <script src="/lib/less/dist/less.js"></script>
     </head>
     <body>
         <nav>
