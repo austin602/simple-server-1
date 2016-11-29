@@ -25,11 +25,15 @@ var methodOverride = require ('method-override');
 
 // Let express know that we are overriding the HTTP method
 // and using the method sent in the form data.
-// server.use (methodOverride ('_method'));
+// server.use (methodOverride ('_method', ['GET', 'POST']));
+
 // server.use (methodOverride ('X-HTTP-Method-Override'));
 server.use (methodOverride (function (request, response) {
     // Grab the request information and check to see
     // if the HTTP method was sent down as an _method value.
+
+    console.log ('**** REQUEST BODY: ', request.body);
+
 
     // Check if the request has body content.
     if (request.body) {
@@ -51,7 +55,7 @@ server.use (methodOverride (function (request, response) {
             }
         }
     }
-}));
+}, ['GET', 'POST']));
 
 
 

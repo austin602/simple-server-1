@@ -10,7 +10,12 @@ var Product = require ('../model/product.js');
 // Show the product creation form.
 router.get ('/create', function (request, response) {
     // response.send ('This is the product creation page.');
-    response.render ('product/edit');
+    response.render ('product/edit', {
+        data: {
+            title: 'Create Product',
+            method: 'POST'
+        }
+    });
 });
 
 // Post to create a product.
@@ -101,6 +106,8 @@ router.get ('/:id/edit', function (request, response) {
         else {
             response.render ('product/edit', {
                 data: {
+                    title: 'Edit Product',
+                    method: 'PUT',
                     product: result
                 }
             });
@@ -135,6 +142,25 @@ router.put ('/:id', function (request, response) {
     );
 });
 
+// Create a route to delete a product by id.
+router.get ('/:id/delete', function (request, response) {
+    // response.send ('The product was deleted.');
+    var productId = request.params.id;
+
+    Product.findByIdAndRemove (productId, function (error, result) {
+        if (error) {
+            // ...
+        }
+        else {
+            response.redirect ('/product');
+        }
+    })
+});
+
+// Create a route to delete a product by id.
+router.delete ('/:id', function (request, response) {
+    response.send ('The product was deleted with _method.');
+});
 
 // Export the router for use outside of module.
 module.exports = router;

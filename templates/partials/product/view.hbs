@@ -1,6 +1,13 @@
 <h2>Products</h2>
 
 <a class="btn btn-warning" href="/product/{{ data.product.id }}/edit">Edit Product</a>
+<a class="btn btn-danger" href="/product/{{ data.product.id }}/delete">Delete Product</a>
+
+<!-- <a class="btn btn-danger" href="/product/{{ data.product.id }}?_method=DELETE">Delete Product</a>
+
+<form method="POST" enctype="application/x-www-form-urlencoded" action="/product/{{ data.product.id }}">
+    <button class="btn btn-danger" type="submit">Delete</button>
+</form> -->
 
 <div class="panel panel-default">
     <div class="panel-body">
