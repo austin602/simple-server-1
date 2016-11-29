@@ -188,14 +188,38 @@ router.get ('/:id/delete', function (request, response) {
             // ...
         }
         else {
-            response.redirect ('/product');
+            if (request.sendJson) {
+                response.json ({
+                    message: 'Product was deleted.'
+                })
+            }
+            else {
+                response.redirect ('/product');
+            }
         }
     })
 });
 
 // Create a route to delete a product by id.
 router.delete ('/:id', function (request, response) {
-    response.send ('The product was deleted with _method.');
+    // response.send ('The product was deleted.');
+    var productId = request.params.id;
+
+    Product.findByIdAndRemove (productId, function (error, result) {
+        if (error) {
+            // ...
+        }
+        else {
+            if (request.sendJson) {
+                response.json ({
+                    message: 'Product was deleted.'
+                })
+            }
+            else {
+                response.redirect ('/product');
+            }
+        }
+    })
 });
 
 // Export the router for use outside of module.
