@@ -112,7 +112,27 @@ router.get ('/:id/edit', function (request, response) {
 router.put ('/:id', function (request, response) {
     var productId = request.params.id;
 
-    response.send ('The product has been updated: ' + productId);
+    Product.findByIdAndUpdate (
+        // id to search by
+        productId,
+
+        // What needs to be udpdated.
+        {
+            name: request.body.name,
+            description: request.body.description,
+            price: request.body.price,
+            imageUrl: request.body.imageUrl
+        },
+
+        // Callback function.
+        function (error, result) {
+            // response.send ('The product has been updated: ' + productId);
+
+            // Redirect back to the specific product so we
+            // can confirm the changes to the product.
+            response.redirect ('/product/' + productId);
+        }
+    );
 });
 
 
