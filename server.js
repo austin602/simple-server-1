@@ -19,6 +19,11 @@ var bodyParser = require ('body-parser');
 server.use (bodyParser.urlencoded ({ extended: true }));
 
 
+// Set express to parse raw JSON data if it is sent
+// down as part of the request body.
+server.use (bodyParser.json ());
+
+
 // Load the method override so express can know what
 // HTTP method other than GET and POST is being used.
 var methodOverride = require ('method-override');
@@ -31,9 +36,7 @@ var methodOverride = require ('method-override');
 server.use (methodOverride (function (request, response) {
     // Grab the request information and check to see
     // if the HTTP method was sent down as an _method value.
-
-    console.log ('**** REQUEST BODY: ', request.body);
-
+    // console.log ('**** REQUEST BODY: ', request.body);
 
     // Check if the request has body content.
     if (request.body) {
@@ -86,6 +89,20 @@ server.use (function (request, response, next) {
     // Set the flash object to be set and used
     // before running any other routes or functions.
     response.locals.message = request.flash ();
+
+    // Grab the content-type from the request.
+    var contentType = request.headers ['content-type'];
+    request.contentType = contentType;
+
+    // Set our request object to use JSON if
+    // we detect a request for 'application/json'.
+    if (contentType == 'application/json') {
+        request.sendJson = true;
+    }
+
+    console.log ('**** REQUEST BODY: ', request.body);
+
+    // console.log ('The content type is: ', contentType);
 
     // Move on to the next route.
     next ();
@@ -209,6 +226,9 @@ var mongoose = require ('mongoose');
 
 // Connect mongoose to the mongo db server.
 mongoose.connect ('mongodb://localhost:27017/sample_database');
+
+// Set the mongoose promise library to use.
+mongoose.Promise = require ('bluebird');
 
 
 // // Grab the schema object from mongoose.
