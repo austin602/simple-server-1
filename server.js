@@ -8,6 +8,8 @@ var server = express ();
 // Set the public folder that can be access by any public user.
 server.use (express.static ('public'));
 
+
+
 // Make sure the body-parser has been installed (npm install body-parser --save).
 // Load the body-parser module.
 var bodyParser = require ('body-parser');
@@ -15,6 +17,41 @@ var bodyParser = require ('body-parser');
 // Set express to use the body parser to pull the
 // data out of any POST requests from the browser.
 server.use (bodyParser.urlencoded ({ extended: true }));
+
+
+// Load the method override so express can know what
+// HTTP method other than GET and POST is being used.
+var methodOverride = require ('method-override');
+
+// Let express know that we are overriding the HTTP method
+// and using the method sent in the form data.
+// server.use (methodOverride ('_method'));
+// server.use (methodOverride ('X-HTTP-Method-Override'));
+server.use (methodOverride (function (request, response) {
+    // Grab the request information and check to see
+    // if the HTTP method was sent down as an _method value.
+
+    // Check if the request has body content.
+    if (request.body) {
+
+        // Check if the request body is a Javascript literal object.
+        if (typeof request.body === 'object') {
+
+            // Check if the body has an '_method' property on it.
+            if (request.body._method) {
+
+                // Grab the HTTP method from the body.
+                var method = request.body._method;
+
+                // Remove the _method property from the body.
+                delete request.body._method;
+
+                // Return the actual HTTP method.
+                return method;
+            }
+        }
+    }
+}));
 
 
 

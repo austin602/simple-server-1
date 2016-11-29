@@ -6,9 +6,23 @@
     </div>
 {{/if}}
 
-<form method="POST" enctype="application/x-www-form-urlencoded" action="/user/login">
+<!-- <form method="POST" enctype="application/x-www-form-urlencoded" action="/user/login">
     <input name="username" type="text">
     <input name="password" type="password">
 
     <button type="submit">Login</button>
-</form>
+</form> -->
+
+<div class="panel panel-default">
+    <form class="panel-body" method="POST" enctype="application/x-www-form-urlencoded" action="/user/login">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input class="form-control" name="username" type="text">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input class="form-control" name="password" type="text">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>

@@ -6,11 +6,13 @@
     </div>
 {{/if}}
 
-<form method="POST" enctype="application/x-www-form-urlencoded" action="/product">
-    <input name="name" type="text">
-    <input name="price" type="text">
-    <input name="imageUrl" type="text">
-    <textarea name="description"></textarea>
+<form method="POST" enctype="application/x-www-form-urlencoded" action="/product/{{ data.product.id }}">
+    <input name="_method" type="hidden" value="PUT">
+
+    <input name="name" type="text" value="{{ data.product.name }}">
+    <input name="price" type="text" value="{{ data.product.price }}">
+    <input name="imageUrl" type="text" value="{{ data.product.imageUrl }}">
+    <textarea name="description">{{ data.product.description }}</textarea>
 
     <button type="submit">Save Product</button>
 </form>

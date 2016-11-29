@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <title>Simple Server</title>
 
-        <link href="/css/style.less" rel="stylesheet" type="text/less" />
+        <link href="/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="/css/style.less" rel="stylesheet" type="text/less">
 
         <!-- set options before less.js script -->
         <script>
@@ -20,25 +21,36 @@
           };
         </script>
         <script src="/lib/less/dist/less.js"></script>
+
+        <script src="/lib/jquery/dist/jquery.js"></script>
+        <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
     </head>
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/product">Products</a>
-            <a href="/faq">FAQ</a>
 
-            <!-- Alternate the menu if the user is logged in or not -->
-            {{#if user }}
-                <a href="/user/dashboard">Dashboard</a>
-                <a href="/user/logout">Logout</a>
-            {{else }}
-                <a href="/user/login">Login</a>
-                <a href="/user/register">Register</a>
-            {{/if}}
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Simple Server</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/product">Products</a></li>
+                    <li><a href="/faq">FAQs</a></li>
 
+                    <!-- Alternate the menu if the user is logged in or not -->
+                    {{#if user }}
+                        <li><a href="/user/dashboard">Dashboard</a></li>
+                        <li><a href="/user/logout">Logout</a></li>
+                    {{else }}
+                        <li><a href="/user/login">Login</a></li>
+                        <li><a href="/user/register">Register</a></li>
+                    {{/if}}
+                </ul>
+            </div>
         </nav>
+
 
         This should be user data: {{ user.name }}
 

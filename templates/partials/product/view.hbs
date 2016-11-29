@@ -1,16 +1,15 @@
 <h2>Products</h2>
 
-<a href="/product/create">Create Product</a>
+<a class="btn btn-warning" href="/product/{{ data.product.id }}/edit">Edit Product</a>
 
-<!-- Loop through each of the products and display them on the view. -->
-{{#each data.productList }}
-    <div>
+<div class="panel panel-default">
+    <div class="panel-body">
         <div>
-            <strong>name:</strong> {{ name }}
+            <strong>name:</strong> {{ data.product.name }}
         </div>
 
         <div>
-            <strong>description:</strong> {{ description }}
+            <strong>description:</strong> {{ data.product.description }}
         </div>
     </div>
-{{/each }}
+</div>
