@@ -1,0 +1,17 @@
+<h2>Angular Home</h2>
+
+<p>This is the <strong>home.html</strong> template rendered with Angular.</p>
+
+
+<ul>
+    <li ng-repeat="item in homeController.productList">
+        <div>
+            <div>
+                <strong>name:</strong> {{ item.name }}
+            </div>
+            <div>
+                <strong>description:</strong> {{ item.description }}
+            </div>
+        </div>
+    </li>
+</ul>

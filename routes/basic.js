@@ -38,6 +38,28 @@ router.get ('/faq', function (request, response) {
     response.render ('faq');
 });
 
+// ---------------------------------------
+// Route to load the Angular UI Frontend.
+router.get ('/angular', function (request, response) {
+    // Load the angular home partial.
+    response.render ('angular/home', {
+        // Override the default index.hbs and
+        // use the index-angular.hbs
+        layout: 'index-angular'
+    });
+});
+
+// ---------------------------------------
+// Route to load the React UI Frontend.
+router.get ('/react', function (request, response) {
+    // Load the react home partial.
+    response.render ('react/home', {
+        // Override the default index.hbs and
+        // use the index-react.hbs
+        layout: 'index-react'
+    });
+});
+
 
 
 // Export the route from this file that is seen

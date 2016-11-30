@@ -194,10 +194,6 @@ server.use ('/product', productRoutes);
 
 
 
-
-
-
-
 // Test a database query.
 server.get ('/test', function (request, response) {
 
